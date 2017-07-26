@@ -30,8 +30,10 @@ use dmstr\widgets\Alert;
     </section>
 
     <section class="content">
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="box box-success box-body">
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
     </section>
 </div>
 

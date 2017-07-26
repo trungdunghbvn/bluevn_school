@@ -6,6 +6,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
+$user = \app\models\User::findOne(Yii::$app->user->id);
+$role = $user->role;
 ?>
 
 <div class="user-form">
@@ -17,7 +19,17 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'password_hash')->textInput(['type'=>'password']) ?>
     <?php } ?>
     
-    <?= $form->field($model, 'role')->dropDownList($model->getRoleDropdown()); ?>
+    <?php 
+    if($role==1){
+        echo $form->field($model, 'role')->dropDownList($model->getRoleDropdown());
+    }
+    elseif ($role==2) {
+        echo "<div class='hidden'>";
+           $model->role = intval(3);
+           echo $form->field($model, 'role')->textInput();
+        echo '</div>';   
+    }
+    ?>
     
     <?= $form->field($model, 'fullname')->textInput() ?>
     

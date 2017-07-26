@@ -2,9 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use common\models\Lists;
-
-$list = new Lists();
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */

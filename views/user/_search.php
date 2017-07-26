@@ -1,29 +1,50 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserSearch */
 /* @var $form yii\widgets\ActiveForm */
+$user = \app\models\User::findOne(Yii::$app->user->id);
+$role = $user->role;
 ?>
 
 <div class="user-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['customer'],
         'method' => 'get',
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+        'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
+        'horizontalCssClasses' => [
+            'label' => 'col-md-1',
+            'offset' => 'col-sm-offset-4',
+            'wrapper' => 'col-md-3',
+            'error' => '',
+            'hint' => '',
+             ],
+        ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php echo $form->field($model, 'fullname') ?>
+    
+    <?php
+    if($role==1){
+    echo $form->field($model, 'role')->dropDownList($model->getRoleDropdown(),
+            ['prompt'=>'All']);
+    }
+    ?>
+    
+    <?php // echo $form->field($model, 'username') ?>
 
-    <?= $form->field($model, 'username') ?>
+    <?php // echo $form->field($model, 'auth_key') ?>
 
-    <?= $form->field($model, 'auth_key') ?>
+    <?php // echo $form->field($model, 'password_hash') ?>
 
-    <?= $form->field($model, 'password_hash') ?>
-
-    <?= $form->field($model, 'password_reset_token') ?>
+    <?php // echo $form->field($model, 'password_reset_token') ?>
 
     <?php // echo $form->field($model, 'email') ?>
 

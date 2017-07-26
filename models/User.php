@@ -25,7 +25,8 @@ use yii\web\IdentityInterface;
  * @property string $fullname
  * @property string $phone
  * @property string $address
- * @property iteger $role
+ * @property integer $role
+ * @property integer $parent_id
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -35,9 +36,11 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE_LABEL = 'Active';
     
     const ROLE_ADMIN = '1';
-    const ROLE_MEMBER = '2';
+    const ROLE_ANGENT = '2';
+    const ROLE_CUSTOMER = '3';
     const ROLE_ADMIN_LABEL = 'Admin';
-    const ROLE_MEMBER_LABEL = 'Member';
+    const ROLE_ANGENT_LABEL = 'Đại lý';
+    const ROLE_CUSTOMER_LABEL = 'Khách hàng';
 
     public $password_retype;
 
@@ -70,16 +73,16 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'message' => 'This email address has already been taken.'],
 
-            [['password_hash','password_retype'], 'required'],
+            [['password_hash'], 'required'],
             ['password_hash', 'string', 'min' => 8],
             ['password_retype','string'],
             
@@ -233,24 +236,25 @@ class User extends ActiveRecord implements IdentityInterface
             'password_hash' => Yii::t('app', 'Password'),
             'images_url' => Yii::t('app', 'Images'),
             'images_name' => Yii::t('app', 'Images'),
-            'fullname' => Yii::t('app', 'Full Name'),
+            'fullname' => Yii::t('app', 'Name'),
             'phone' => Yii::t('app', 'Phone'),
             'address' => Yii::t('app', 'Address'),
             'password_retype' => Yii::t('app', 'Retype Password'),
+            'parent_id'=>Yii::t('app', 'Customer')
         ];
     }
     
     public function getImages($with=100,$class_name='img-circle'){
-        $src = Yii::$app->request->baseUrl.'/../../uploads/default-image.png';
+        $src = Yii::$app->request->baseUrl.'/uploads/default-image.png';
         if($this->images_url)
-            $src = Yii::$app->request->baseUrl.'/../../uploads/'.$this->images_url;
+            $src = Yii::$app->request->baseUrl.'/uploads/'.$this->images_url;
         return \yii\helpers\Html::img($src,[
-                    'width'=>$with,'height'=>$with,'class'=>$class_name,'alt'=>"User Image",'style'=>'height:'.$with.'px']
+                    'width'=>$with,'height'=>$with,'class'=>$class_name,'alt'=>"User Image",'style'=>'height:'.$with.'px width: '.$with.'px']
                 );
     }
     
     public function getRoleDropdown(){
-        return array(self::ROLE_ADMIN=>self::ROLE_ADMIN_LABEL, self::ROLE_MEMBER=>self::ROLE_MEMBER_LABEL);
+        return array(self::ROLE_ADMIN=>self::ROLE_ADMIN_LABEL, self::ROLE_ANGENT=>self::ROLE_ANGENT_LABEL, self::ROLE_CUSTOMER=>self::ROLE_CUSTOMER_LABEL);
     }
     
     public function getRole(){

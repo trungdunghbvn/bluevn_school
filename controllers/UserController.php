@@ -19,6 +19,16 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['view', 'index','create','update','create','customer'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,7 +46,6 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -63,20 +72,21 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-
-        if ($model->load(Yii::$app->request->post())) {
-            $files = \yii\web\UploadedFile::getInstance($model, 'iamges_url');
+//        print_r(Yii::$app->request->post());
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $files = \yii\web\UploadedFile::getInstance($model, 'images_url');
             if($files){
                 $file_name = $files->baseName.date('i') . '.' . $files->extension;
-                $model->iamges_name = $files->baseName;
-                $model->iamges_url = $file_name;
+                $model->images_name = $files->baseName;
+                $model->images_url = $file_name;
             }
             $model->setPassword($model->password_hash);
             $model->generateAuthKey();
+            $model->parent_id = Yii::$app->user->id;
             if($model->save()){
                 if($files)
-                    $files->saveAs(Yii::getAlias('@webroot').'/../../uploads/' . $file_name);
-                return $this->redirect(['index']);
+                    $files->saveAs(Yii::getAlias('@webroot').'/uploads/' . $file_name);
+                return $this->redirect(['customer']);
             }
         } else {
             return $this->render('create', [
@@ -161,4 +171,20 @@ class UserController extends Controller
             ]);
         }
     } 
+    
+    /**
+     * Lists all customer.
+     * @return mixed
+     */
+    public function actionCustomer()
+    {
+        $searchModel = new UserSearch();
+        $searchModel->parent_id = Yii::$app->user->id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('customer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }
