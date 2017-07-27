@@ -39,7 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'role',
                 'value'=>function($model){
+                    if($model->role <=3){
                     return $model->getRole();
+                    }
+                    elseif($model->role >3) {
+                    return $model->getRoleShool();
+                    }    
                 }
             ],       
             // 'created_at',

@@ -29,7 +29,12 @@ $role = $user->role;
            echo $form->field($model, 'role')->textInput();
         echo '</div>';   
     }
+    else {   
+        echo $form->field($model, 'role')->dropDownList($model->getRoleShoolDropdown());
+    }
     ?>
+    
+    <?php echo $form->field($modelshool, 'school_name')->dropDownList($dataShool,['prompt'=>'-Chọn danh mục-']); ?>
     
     <?= $form->field($model, 'fullname')->textInput() ?>
     

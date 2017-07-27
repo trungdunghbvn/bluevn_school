@@ -41,6 +41,13 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_ADMIN_LABEL = 'Admin';
     const ROLE_ANGENT_LABEL = 'Đại lý';
     const ROLE_CUSTOMER_LABEL = 'Khách hàng';
+    
+    const ROLE_ADMIN_SHOOLS = '4';
+    const ROLE_ANGENT_SHOOLS = '5';
+    const ROLE_CUSTOMER_SHOOLS = '6';
+    const ROLE_ADMIN_LABEL_SHOOLS = 'Admin Shool';
+    const ROLE_ANGENT_LABEL_SHOOLS = 'Giáo viên';
+    const ROLE_CUSTOMER_LABEL_SHOOLS = 'Nhân viên';
 
     public $password_retype;
 
@@ -254,6 +261,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     
     public function getRoleDropdown(){
+        
         return array(self::ROLE_ADMIN=>self::ROLE_ADMIN_LABEL, self::ROLE_ANGENT=>self::ROLE_ANGENT_LABEL, self::ROLE_CUSTOMER=>self::ROLE_CUSTOMER_LABEL);
     }
     
@@ -261,7 +269,18 @@ class User extends ActiveRecord implements IdentityInterface
         $roles = $this->getRoleDropdown();
         return $roles[$this->role];
     }
+//    admin
     
+//    admin shool
+    public function getRoleShoolDropdown(){
+        return array(self::ROLE_ADMIN_SHOOLS=>self::ROLE_ADMIN_LABEL_SHOOLS, self::ROLE_ANGENT_SHOOLS=>self::ROLE_ANGENT_LABEL_SHOOLS, self::ROLE_CUSTOMER_SHOOLS=>self::ROLE_CUSTOMER_LABEL_SHOOLS);
+    }
+    
+    public function getRoleShool(){
+        $roles = $this->getRoleShoolDropdown();
+        return $roles[$this->role];
+    }
+//    end admin shool
     public function getStatusDropdown(){
         return array(self::STATUS_ACTIVE=>self::STATUS_ACTIVE_LABEL, self::STATUS_DELETED=>self::STATUS_DELETED_LABEL);
     }

@@ -29,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'role',
                 'format'=>'raw',
-                'value'=>$model->getRole()
+                'value'=>function($model){
+                    if($model->role <=3){
+                    return $model->getRole();
+                    }
+                    elseif($model->role >3) {
+                    return $model->getRoleShool();
+                    }    
+                }
             ],
             'email:email',
             'auth_key',

@@ -4,10 +4,12 @@ namespace app\controllers;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
+use app\models\Shools;
+use app\models\UserSchool;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\ArrayHelper;
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -23,7 +25,7 @@ class UserController extends Controller
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['view', 'index','create','update','create','customer'],
+                        'actions' => ['view', 'index','create','update','create','customer','create-shool','reset-password-user'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -72,6 +74,8 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $modelshool = new Shools();
+        $dataShool =ArrayHelper::map($modelshool->getAllShool(),'school_id','school_name');
 //        print_r(Yii::$app->request->post());
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $files = \yii\web\UploadedFile::getInstance($model, 'images_url');
@@ -91,10 +95,50 @@ class UserController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modelshool' => $modelshool,
+                'dataShool'=> $dataShool,
             ]);
         }
     }
 
+    public function actionCreateShool()
+    {
+        $model = new User();
+        $modelshool = new Shools();
+        $modelusershool = new UserSchool();
+        $dataShool =ArrayHelper::map($modelshool->getAllShool(),'school_id','school_name');
+//        print_r(Yii::$app->request->post());
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $files = \yii\web\UploadedFile::getInstance($model, 'images_url');
+            if($files){
+                $file_name = $files->baseName.date('i') . '.' . $files->extension;
+                $model->images_name = $files->baseName;
+                $model->images_url = $file_name;
+            }
+            $model->setPassword($model->password_hash);
+            $model->generateAuthKey();
+            $model->parent_id = Yii::$app->user->id;
+            $modelshool->load(Yii::$app->request->post());
+            $data = $modelshool->school_name;
+            if($model->save()){
+                $modelusershool->school_id = $data;
+                $modelusershool->user_id = $model->id;
+                $modelusershool->user_school_role = $model->role;
+                $modelusershool->save();
+                if($files){
+                    $files->saveAs(Yii::getAlias('@webroot').'/uploads/' . $file_name);
+                }
+                
+                return $this->redirect(['/user-school/index']);
+            }
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'modelshool' => $modelshool,
+                'dataShool'=> $dataShool,
+            ]);
+        }
+    }
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.

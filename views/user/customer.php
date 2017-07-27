@@ -32,8 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
 //             'email:email',
             [
                 'attribute'=>'role',
-                'value'=>function($model){
+                'content'=>function($model){
+                if($model->role <=3){
                     return $model->getRole();
+                    }
+                    return $model->getRoleShool();
                 }
             ],
             [
