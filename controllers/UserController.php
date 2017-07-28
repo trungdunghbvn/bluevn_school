@@ -132,7 +132,7 @@ class UserController extends Controller
                 return $this->redirect(['/user-school/index']);
             }
         } else {
-            return $this->render('create', [
+            return $this->render('_form_admin_school', [
                 'model' => $model,
                 'modelshool' => $modelshool,
                 'dataShool'=> $dataShool,

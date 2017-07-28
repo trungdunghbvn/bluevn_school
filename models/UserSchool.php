@@ -45,4 +45,11 @@ class UserSchool extends \yii\db\ActiveRecord
             'user_school_role' => 'User School Role',
         ];
     }
+    public function getAllUserShool($id){
+        $data= UserSchool::find()
+                ->where(['school_id'=>$id])
+                ->asArray()
+                ->all();
+        return $data;
+    }
 }

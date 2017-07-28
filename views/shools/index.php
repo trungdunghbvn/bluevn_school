@@ -27,7 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'school_id',
 //            'user_id',
-            'school_name',
+            
+            [
+              'attribute'=>'school_name',
+               'format'=>'raw',
+               'value'=>function($model){
+                return \yii\bootstrap\Html::a($model->school_name, ['view','id'=>$model->school_id]);}
+            ],
             'school_address',
             'school_phone',
             // 'school_fax',

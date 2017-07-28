@@ -5,9 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\Shools;
 use app\models\ShoolsSearch;
+use app\models\UserSchool;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * ShoolsController implements the CRUD actions for Shools model.
@@ -51,8 +53,11 @@ class ShoolsController extends Controller
      */
     public function actionView($id)
     {
+        $modelshool = new UserSchool();
+        $data = $modelshool->getAllUserShool($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'data' => $data,
         ]);
     }
 

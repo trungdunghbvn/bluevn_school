@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 26, 2017 lúc 11:39 AM
+-- Thời gian đã tạo: Th7 28, 2017 lúc 12:13 PM
 -- Phiên bản máy phục vụ: 10.1.25-MariaDB
 -- Phiên bản PHP: 7.1.7
 
@@ -62,6 +62,17 @@ CREATE TABLE `shools` (
   `school_status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `shools`
+--
+
+INSERT INTO `shools` (`school_id`, `user_id`, `school_name`, `school_address`, `school_phone`, `school_fax`, `school_email`, `school_status`) VALUES
+(1, 11, 'THPT Vân Tảo', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn@gmail.com', 0),
+(2, 11, 'THPT Nguyễn Trãi', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn1@gmail.com', 0),
+(3, 11, 'THPT  Ba Thá', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn2@gmail.com', 10),
+(4, 11, 'THPT  Phú Xuyên', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn3@gmail.com', 0),
+(5, 11, 'THPT Lê Thánh Tông', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn4@gmail.com', 10);
+
 -- --------------------------------------------------------
 
 --
@@ -102,7 +113,13 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (8, 'trungdunghbvn', 'SMsLrhlfEOe6h990Rf5Z8ugGlZ1WPezp', '$2y$13$hluhbafQDCn7/8U.BSMpDeKFXIAdU67G6QCdvdl5JjQJH57X/xi/a', NULL, 'daily@gmail.com', 10, 1501053201, 1501053202, '19029539_1048868261910865_7973933282149419146_n', 'daily', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n13.jpg', 2, 1),
 (11, 'test', 'DZIILdphf-hVd_FGHIVtNCRQ3nqTmX4D', '$2y$13$B4RuLfZXSuH0d/tbO.H3A.DWcSrrlMCPAZk00ZZDLi8d14i0kpW5m', NULL, 'trungdungh12bvn@gmail.com', 10, 1501056339, 1501056340, '19029539_1048868261910865_7973933282149419146_n', 'test', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n05.jpg', 3, 8),
 (12, 'test2', 'aKHG7_ApMJpbN4DZ2ElHBP74vnPn4GfV', '$2y$13$MFmldZ3NB1xs9idqGUl0ne1yb1NuLcLWZPI8OZpef1UyYAC0eMTE6', NULL, 'trungdungh13bvn@gmail.com', 10, 1501056722, 1501056724, '19029539_1048868261910865_7973933282149419146_n', 'dung', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n12.jpg', 3, 8),
-(13, 'test3', '6x4N5M7_laAcbMnAxEkcoNMlIOImVdHn', '$2y$13$MwKddtmxibQxBZXa2vv.JeEYz4FQ8A6vPzoMfzi7/agcubJbFNZJq', NULL, 'trungdungh14bvn@gmail.com', 10, 1501056888, 1501056889, '19029539_1048868261910865_7973933282149419146_n', 'test12', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 3, 8);
+(13, 'test3', '6x4N5M7_laAcbMnAxEkcoNMlIOImVdHn', '$2y$13$MwKddtmxibQxBZXa2vv.JeEYz4FQ8A6vPzoMfzi7/agcubJbFNZJq', NULL, 'trungdungh14bvn@gmail.com', 10, 1501056888, 1501056889, '19029539_1048868261910865_7973933282149419146_n', 'test12', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 3, 8),
+(17, 'vantao', 'PPtXNoWsuIhT22CmvI8eIosLn-rRMI0z', '$2y$13$tbdvBcSkcQoAC9xcHkPzAuVOo4h0pj61qupHLQb/qHYaeF148L2j6', NULL, 'trungdungh1231bvn@gmail.com', 10, 1501140893, 1501140895, '19029539_1048868261910865_7973933282149419146_n', 'van tao', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n34.jpg', 4, 11),
+(18, 'vantao12', 'NaKwZYnW9Jot3puutNQDbjQpqQYiN-6F', '$2y$13$0pQTv3h7FrrUiWkQR0Wt0.tRt3ylZNklNfcOpUtL7p8Eu1tPYG2DO', NULL, 'trungdungh4231bvn@gmail.com', 10, 1501141122, 1501141123, '19029539_1048868261910865_7973933282149419146_n', 'van tao', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n38.jpg', 3, 8),
+(19, 'test321', '', '12345678', NULL, 'trungdungh12121bvn@gmail.com', 10, 1501149799, 1501149799, '', 'dung', '0967027791', '', '', 4, 0),
+(20, 'adminvantao', 'vcNapE6I7McLz1OeKZfE5w3xwuI2avk3', '$2y$13$BIwVh.EPKLviqGZDNBNvRuejBb1Tq5BULB6JRw4gJ4GcNnZMg2Iiq', NULL, 'vantao12@gmail.com', 10, 1501150314, 1501150316, '19029539_1048868261910865_7973933282149419146_n', 'Vân Tảo', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n11.jpg', 4, 11),
+(21, 'adminvantao1', 'h2mCKpeyFAQCp84S-cyChBb-3lYHXSu-', '$2y$13$yGUfZNP0zhMd0yByXhpy9ujcLFNynSdP2D.yMP3GuqFjjphq7pDBW', NULL, 'vantao1@gmail.com', 10, 1501150452, 1501150453, '19029539_1048868261910865_7973933282149419146_n', 'Vân Tảo', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 5, 11),
+(22, 'test21', 'jfr1FsxCSSdecomYbG_2dJThJ44ESgBr', '$2y$13$RQ981chqxU37wD2sJY3u6eDg890rUvcZirPuJqudnFU0/h5FZwX7.', NULL, 'test@gmail.com', 10, 1501229670, 1501229672, '19029539_1048868261910865_7973933282149419146_n', 'test', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 6, 11);
 
 -- --------------------------------------------------------
 
@@ -137,6 +154,15 @@ CREATE TABLE `user_school` (
   `school_id` int(11) NOT NULL,
   `user_school_role` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `user_school`
+--
+
+INSERT INTO `user_school` (`user_school_id`, `user_id`, `school_id`, `user_school_role`) VALUES
+(1, 20, 1, 4),
+(2, 21, 1, 5),
+(3, 22, 1, 6);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -188,12 +214,12 @@ ALTER TABLE `list_setup`
 -- AUTO_INCREMENT cho bảng `shools`
 --
 ALTER TABLE `shools`
-  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT cho bảng `user_profile_basic`
 --
@@ -203,7 +229,7 @@ ALTER TABLE `user_profile_basic`
 -- AUTO_INCREMENT cho bảng `user_school`
 --
 ALTER TABLE `user_school`
-  MODIFY `user_school_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `user_school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
