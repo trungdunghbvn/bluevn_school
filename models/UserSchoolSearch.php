@@ -63,6 +63,7 @@ class UserSchoolSearch extends UserSchool
             'school_id' => $this->school_id,
             'user_school_role' => $this->user_school_role,
         ]);
+        $query->with('users');
 
         return $dataProvider;
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 28, 2017 lúc 12:13 PM
+-- Thời gian đã tạo: Th7 31, 2017 lúc 12:23 PM
 -- Phiên bản máy phục vụ: 10.1.25-MariaDB
 -- Phiên bản PHP: 7.1.7
 
@@ -21,6 +21,37 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `bluevn_school`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `class`
+--
+
+CREATE TABLE `class` (
+  `class_id` int(11) UNSIGNED NOT NULL,
+  `school_id` int(11) DEFAULT NULL,
+  `class_name` varchar(50) DEFAULT NULL,
+  `class_block` int(2) DEFAULT NULL,
+  `class_homeroom_teacher1` int(11) DEFAULT NULL,
+  `class_homeroom_teacher2` int(11) DEFAULT NULL,
+  `class_status` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `class_subject`
+--
+
+CREATE TABLE `class_subject` (
+  `class_subject_id` int(11) UNSIGNED NOT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `subject_id` int(3) DEFAULT NULL,
+  `teacher_id` int(11) DEFAULT NULL,
+  `class_subject_note` varchar(255) DEFAULT NULL,
+  `class_subject_status` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -71,7 +102,8 @@ INSERT INTO `shools` (`school_id`, `user_id`, `school_name`, `school_address`, `
 (2, 11, 'THPT Nguyễn Trãi', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn1@gmail.com', 0),
 (3, 11, 'THPT  Ba Thá', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn2@gmail.com', 10),
 (4, 11, 'THPT  Phú Xuyên', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn3@gmail.com', 0),
-(5, 11, 'THPT Lê Thánh Tông', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn4@gmail.com', 10);
+(5, 11, 'THPT Lê Thánh Tông', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn4@gmail.com', 10),
+(6, 11, 'THPT Tự Nhiên', 'Vân Tảo - Thường Tín - Hà Nội', '0967027791', '0967027791', 'trungdunghbvn0123@gmail.com', 10);
 
 -- --------------------------------------------------------
 
@@ -119,7 +151,13 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (19, 'test321', '', '12345678', NULL, 'trungdungh12121bvn@gmail.com', 10, 1501149799, 1501149799, '', 'dung', '0967027791', '', '', 4, 0),
 (20, 'adminvantao', 'vcNapE6I7McLz1OeKZfE5w3xwuI2avk3', '$2y$13$BIwVh.EPKLviqGZDNBNvRuejBb1Tq5BULB6JRw4gJ4GcNnZMg2Iiq', NULL, 'vantao12@gmail.com', 10, 1501150314, 1501150316, '19029539_1048868261910865_7973933282149419146_n', 'Vân Tảo', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n11.jpg', 4, 11),
 (21, 'adminvantao1', 'h2mCKpeyFAQCp84S-cyChBb-3lYHXSu-', '$2y$13$yGUfZNP0zhMd0yByXhpy9ujcLFNynSdP2D.yMP3GuqFjjphq7pDBW', NULL, 'vantao1@gmail.com', 10, 1501150452, 1501150453, '19029539_1048868261910865_7973933282149419146_n', 'Vân Tảo', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 5, 11),
-(22, 'test21', 'jfr1FsxCSSdecomYbG_2dJThJ44ESgBr', '$2y$13$RQ981chqxU37wD2sJY3u6eDg890rUvcZirPuJqudnFU0/h5FZwX7.', NULL, 'test@gmail.com', 10, 1501229670, 1501229672, '19029539_1048868261910865_7973933282149419146_n', 'test', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 6, 11);
+(22, 'test21', 'jfr1FsxCSSdecomYbG_2dJThJ44ESgBr', '$2y$13$RQ981chqxU37wD2sJY3u6eDg890rUvcZirPuJqudnFU0/h5FZwX7.', NULL, 'test@gmail.com', 10, 1501229670, 1501229672, '19029539_1048868261910865_7973933282149419146_n', 'test', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n14.jpg', 6, 11),
+(23, 'nguyentrai', 'RgzUmPfwgyK7WsujBZAQYtyu4n0x4Ltk', '$2y$13$RSqJe4OCDDyuvMTpvALq6O5Wk61UeiKlc.HayvYsdV2rFD15eDaDm', NULL, 'nguyentrai@gmail.com', 10, 1501485653, 1501485654, '19029539_1048868261910865_7973933282149419146_n', 'nguyentrai', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n20.jpg', 4, 11),
+(24, 'batha', 'AQdaCICV_UxHhyHEEWe76MdDt09kHHh5', '$2y$13$flq4c6k6rKfoIwY1Z0k5mujRaM.IAm2TNByaHum/hspVrW1nC8itm', NULL, 'batha@gmail.com', 10, 1501485723, 1501485724, '19029539_1048868261910865_7973933282149419146_n', 'batha', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n22.jpg', 4, 11),
+(25, 'batha1', 'pRFHW513tAEsyr_ag1cWurAL5ivJXHJE', '$2y$13$YwOIddlwA6GHBWqAjq.f0uplSRGHFC0z1gJ0jkqcWKCM7dI9Hat72', NULL, 'batha1@gmail.com', 10, 1501485768, 1501485769, '19029539_1048868261910865_7973933282149419146_n', 'batha1', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n22.jpg', 5, 11),
+(26, 'batha2', '_uct6Z-6hPLml1sMqztu1TAUhlNQyyN3', '$2y$13$kKCh8Uxr7K1DOSZ/FXLgEuV6guOpde1Lx4KTOlFwS0/6RZl9U9wzu', NULL, 'batha2@gmail.com', 10, 1501485954, 1501485955, '19029539_1048868261910865_7973933282149419146_n', 'batha2', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n25.jpg', 5, 11),
+(27, 'batha3', 'JfID6Ecbo69rnE0ONQq-qSIFSjA_HjNA', '$2y$13$5pVX1qcEm8LP0KNR7xrL2.6b/FzWIJaHA.Prqc4pRp0/1bz3KpysC', NULL, 'batha3@gmail.com', 10, 1501486112, 1501486113, '19029539_1048868261910865_7973933282149419146_n', 'batha2', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n28.jpg', 6, 11),
+(28, 'batha4', 'tlOS1tei-ay3ojguxO6EVoCM8B3gYkdM', '$2y$13$XxGN47UcicOtzEMGqpWRFuiXTcRX5uHT75hZWXTRaJAPJ386BiFi2', NULL, 'batha4@gmail.com', 10, 1501486255, 1501486256, '19029539_1048868261910865_7973933282149419146_n', 'batha2', '0967027791', '', '19029539_1048868261910865_7973933282149419146_n30.jpg', 6, 11);
 
 -- --------------------------------------------------------
 
@@ -162,11 +200,28 @@ CREATE TABLE `user_school` (
 INSERT INTO `user_school` (`user_school_id`, `user_id`, `school_id`, `user_school_role`) VALUES
 (1, 20, 1, 4),
 (2, 21, 1, 5),
-(3, 22, 1, 6);
+(3, 22, 1, 6),
+(4, 23, 2, 4),
+(5, 24, 3, 4),
+(6, 25, 3, 5),
+(7, 26, 3, 5),
+(8, 28, 3, 6);
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `class`
+--
+ALTER TABLE `class`
+  ADD PRIMARY KEY (`class_id`);
+
+--
+-- Chỉ mục cho bảng `class_subject`
+--
+ALTER TABLE `class_subject`
+  ADD PRIMARY KEY (`class_subject_id`);
 
 --
 -- Chỉ mục cho bảng `list_setup`
@@ -206,6 +261,16 @@ ALTER TABLE `user_school`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `class`
+--
+ALTER TABLE `class`
+  MODIFY `class_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT cho bảng `class_subject`
+--
+ALTER TABLE `class_subject`
+  MODIFY `class_subject_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT cho bảng `list_setup`
 --
 ALTER TABLE `list_setup`
@@ -214,12 +279,12 @@ ALTER TABLE `list_setup`
 -- AUTO_INCREMENT cho bảng `shools`
 --
 ALTER TABLE `shools`
-  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT cho bảng `user_profile_basic`
 --
@@ -229,7 +294,7 @@ ALTER TABLE `user_profile_basic`
 -- AUTO_INCREMENT cho bảng `user_school`
 --
 ALTER TABLE `user_school`
-  MODIFY `user_school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `user_school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

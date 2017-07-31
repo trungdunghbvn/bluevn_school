@@ -12,18 +12,7 @@ $this->title = $model->school_id;
 $this->params['breadcrumbs'][] = ['label' => 'Shools', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<style>
-    #add_admin .content-wrapper{
-        margin: 0px;
-    }
-    #add_admin .content-header,#add_admin .control-sidebar-bg,#add_admin .main-footer,#add_admin .main-header,#add_admin .main-sidebar{
-        display: none;
-    }
-    #add_admin .content{
-        padding-top: 15px;
-    }
 
-</style>
 <div class="shools-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -70,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'items' => [
                     [
                         'label' => 'Danh sách admin',
-                        'content' =>$this->render('view_user_school', ['data' => $data]),
+                        'content' =>"<div id='user_school'></div>",
                         'active' => true,
                         'options' => ['id' => 'b'],
                     ],
@@ -92,6 +81,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 <script>
+         window.onload = function()
+            {
+                var id = <?php echo $model->school_id;?>;
+            	 $('#user_school').load('<?php echo Yii::$app->homeUrl.'user/user-school' ?>',{school_id:id});
+            };
+            
 function addadmin(school_id){
     $('#add_admin').load('<?php echo Yii::$app->homeUrl.'user/create-shool' ?>',{school_id:school_id});
     $('h4').html('<h1>Thêm địa chỉ</h1>');

@@ -21,6 +21,7 @@ class UserSchool extends \yii\db\ActiveRecord
     {
         return 'user_school';
     }
+    
 
     /**
      * @inheritdoc
@@ -45,11 +46,23 @@ class UserSchool extends \yii\db\ActiveRecord
             'user_school_role' => 'User School Role',
         ];
     }
-    public function getAllUserShool($id){
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    public function getAllUserIdShool($id){
+        $arr = array(0);
         $data= UserSchool::find()
                 ->where(['school_id'=>$id])
-                ->asArray()
                 ->all();
-        return $data;
+        foreach ($data as $value) {
+            $arr[] = $value->user_id;
+        }
+        return $arr;
     }
 }

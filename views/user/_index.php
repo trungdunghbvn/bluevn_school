@@ -1,23 +1,9 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel common\models\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('app', 'Users');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
@@ -38,10 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'role',
-                'format'=>'raw',
                 'value'=>function($model){
+                    if($model->role <=3){
                     return $model->getRole();
-                      
+                    }
+                    elseif($model->role >3) {
+                    return $model->getRoleShool();
+                    }    
                 }
             ],       
             // 'created_at',
@@ -50,4 +39,3 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-</div>

@@ -25,7 +25,7 @@ class UserController extends Controller
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['view', 'index','create','update','create','customer','create-shool','reset-password-user'],
+                        'actions' => ['view', 'index','create','update','create','customer','create-shool','reset-password-user','user-school','school'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -132,7 +132,7 @@ class UserController extends Controller
                 return $this->redirect(['/user-school/index']);
             }
         } else {
-            return $this->render('_form_admin_school', [
+            return $this->renderAjax('_form_admin_school', [
                 'model' => $model,
                 'modelshool' => $modelshool,
                 'dataShool'=> $dataShool,
@@ -231,4 +231,32 @@ class UserController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionUserSchool()
+    {
+        if($_POST['school_id']){
+        $id = $_POST['school_id'];
+        $searchModel = new UserSearch();
+        $modelshool = new UserSchool();
+        $searchModel->user_arr_id = $modelshool->getAllUserIdShool($id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->renderAjax('_index', [
+            'dataProvider' => $dataProvider,
+        ]);
+       }
+    }
+    public function actionSchool()
+    {
+        $modelshool = new UserSchool();
+        $user_id = Yii::$app->user->id;
+        $data = UserSchool::find()->where(['user_id'=>$user_id])->one();
+        $id = $data['school_id'];
+        $searchModel = new UserSearch();
+        $searchModel->user_arr_id = $modelshool->getAllUserIdShool($id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+   
+    
 }

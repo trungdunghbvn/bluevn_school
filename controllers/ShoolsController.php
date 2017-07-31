@@ -54,10 +54,12 @@ class ShoolsController extends Controller
     public function actionView($id)
     {
         $modelshool = new UserSchool();
-        $data = $modelshool->getAllUserShool($id);
+        $searchModel = new \app\models\UserSearch();
+        $searchModel->user_arr_id=$modelshool->getAllUserIdShool($id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'data' => $data,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

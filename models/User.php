@@ -266,7 +266,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     
     public function getRole(){
-        $roles = $this->getRoleDropdown();
+        $roles = $this->getRoleDropdown()+ $this->getRoleShoolDropdown();
         return $roles[$this->role];
     }
 //    admin

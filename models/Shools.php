@@ -29,6 +29,8 @@ class Shools extends \yii\db\ActiveRecord
     {
         return 'shools';
     }
+    
+    
 
     /**
      * @inheritdoc

@@ -12,6 +12,7 @@ use app\models\User;
  */
 class UserSearch extends User
 {
+    public $user_arr_id;
     /**
      * @inheritdoc
      */
@@ -72,7 +73,8 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'fullname', $this->fullname])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email]);
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['IN','id',$this->user_arr_id]);
 
         return $dataProvider;
     }

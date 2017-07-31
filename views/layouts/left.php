@@ -66,16 +66,11 @@
                                 ['label' => 'Lịch sử tin nhắn','icon' => 'circle-o', 'url' => '#',],
                            ],
                     ],
-                    ['label' => 'Quản lý tài khoản', 'icon' => 'dashboard', 'url' => ['/user']],
-                    ['label' => 'Quản lý khách hàng', 'icon' => 'dashboard', 'url' => ['/user/customer'],'visible' => (!($role == 3) ),
+                    ['label' => 'Quản lý tài khoản', 'icon' => 'dashboard', 'url' => ['/user/school'],'visible' => ($role == 4)],
+                    ['label' => 'Quản lý khách hàng', 'icon' => 'dashboard', 'url' => ['/user/customer'],'visible' => ($role <= 2 ),
                         
                     ],
-                    ['label' => 'Quản lý trường', 'icon' => 'dashboard', 'url' => ['/#'],
-                        'items' => [
-                                ['label' => 'Danh sách trường', 'icon' => 'circle-o', 'url' => ['/shools'],],
-                                ['label' => 'Danh sách admin trường','icon' => 'circle-o', 'url' =>['/user-school'],],
-                           ],
-                    ],
+                    ['label' => 'Danh sách trường', 'icon' => 'circle-o', 'url' => ['/shools'],'visible' => ($role <= 3)],
                     
                     ['label' => 'Cài đặt', 'icon' => 'dashboard', 'url' => ['/listsetup']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
